@@ -164,6 +164,9 @@
             margin-bottom: 12px;
             transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
             filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .card:hover .card-icon {
@@ -190,7 +193,7 @@
             transform: translateZ(10px);
         }
 
-        /* Karta Reddit na pełną szerokość */
+        /* Karty na pełną szerokość */
         .card.full-width {
             grid-column: 1 / -1;
             flex-direction: row;
@@ -574,7 +577,14 @@
                     <div class="card-title">GitHub</div>
                 </a>
 
-                <a href="https://www.reddit.com/u/Organic_Ad3169/s/QeS5T2MWJ9" target="_blank" class="card full-width">
+                <a href="https://steamcommunity.com/profiles/76561199473821832/" target="_blank" class="card">
+                    <div class="card-icon">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg" alt="Steam" style="filter: brightness(0) invert(1);">
+                    </div>
+                    <div class="card-title">Steam</div>
+                </a>
+
+                <a href="https://www.reddit.com/u/Organic_Ad3169/s/QeS5T2MWJ9" target="_blank" class="card">
                     <div class="card-icon">
                         <img src="https://static.vecteezy.com/system/resources/previews/018/930/474/large_2x/reddit-logo-reddit-icon-transparent-free-png.png" alt="Reddit">
                     </div>
@@ -803,7 +813,6 @@
             document.getElementById('main-subtitle').innerText = 'GET OUT OF MY SWAMP!';
             document.getElementById('main-logo').innerHTML = `<img src="${shrekImageUrl}" style="width: 75px; height: 75px; border-radius: 50%; object-fit: cover;">`;
 
-            // Zmiana obrazków (poza odznaką Netlify i lightboxem)
             const images = document.querySelectorAll('img:not(#lightbox-img):not(.netlify-badge img)');
             images.forEach(img => {
                 img.src = shrekImageUrl;
