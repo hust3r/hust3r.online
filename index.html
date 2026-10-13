@@ -84,21 +84,14 @@
             z-index: 1;
         }
 
-        /* --- ULEPSZONY NAGŁÓWEK --- */
         .header {
             text-align: center;
-            margin-bottom: 40px;
-            position: relative;
-        }
-
-        .logo-wrapper {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 15px;
+            margin-bottom: 45px;
         }
 
         .logo {
-            font-size: 52px;
+            font-size: 54px;
+            margin-bottom: 12px;
             display: inline-block;
             background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
             -webkit-background-clip: text;
@@ -112,58 +105,24 @@
             100% { filter: drop-shadow(0 0 30px rgba(168, 85, 247, 0.6)); transform: scale(1.05); }
         }
 
-        .title-box {
-            position: relative;
-            display: inline-block;
-            padding: 10px 24px;
-            background: rgba(13, 18, 30, 0.5);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            border-radius: 16px;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.5),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            margin-bottom: 12px;
-        }
-
         h1 {
-            font-size: 42px;
+            font-size: 46px;
             color: var(--text-main);
+            margin-bottom: 6px;
             font-weight: 300;
-            letter-spacing: 10px;
+            letter-spacing: 8px;
             font-family: 'Courier New', monospace;
             text-transform: lowercase;
-            text-shadow: 0 0 25px rgba(56, 189, 248, 0.3);
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
         }
 
-        .subtitle-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 14px;
-            background: rgba(56, 189, 248, 0.05);
-            border: 1px solid rgba(56, 189, 248, 0.15);
-            border-radius: 20px;
-            color: var(--accent-cyan);
+        .subtitle {
+            color: var(--text-muted);
             font-size: 11px;
-            letter-spacing: 3px;
+            letter-spacing: 5px;
             text-transform: uppercase;
             font-weight: 600;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .subtitle-badge::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            background-color: var(--accent-cyan);
-            border-radius: 50%;
-            box-shadow: 0 0 8px var(--accent-cyan);
-            animation: blink 2s infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
+            opacity: 0.8;
         }
 
         .cards-container {
@@ -706,8 +665,7 @@
                 grid-template-columns: 1fr;
             }
             h1 {
-                font-size: 34px;
-                letter-spacing: 6px;
+                font-size: 38px;
             }
             .cards-container {
                 padding: 16px;
@@ -733,17 +691,10 @@
     </button>
 
     <div class="container">
-        <!-- Ulepszony Nagłówek -->
         <div class="header">
-            <div class="logo-wrapper">
-                <div class="logo" id="main-logo">✦</div>
-            </div>
-            <div class="title-box">
-                <h1 id="main-title">huster</h1>
-            </div>
-            <div>
-                <span class="subtitle-badge" id="main-subtitle">where do you want to go?</span>
-            </div>
+            <div class="logo" id="main-logo">✦</div>
+            <h1 id="main-title">huster</h1>
+            <p class="subtitle" id="main-subtitle">where do you want to go?</p>
         </div>
 
         <div class="cards-container">
@@ -791,6 +742,7 @@
                 huster &copy; 2026 all rights reserved &bull; <span class="shrek-trigger" onclick="activateShrekMode()">shrekmode</span>
             </div>
             
+            <!-- Napis MADE BY AI -->
             <div class="ai-tag">MADE BY AI</div>
             
             <!-- Netlify Deploy Status Badge -->
@@ -887,9 +839,8 @@
                     
                     <div class="scrollable-desc">
                         <div class="changelog-item">
-                            <div class="changelog-version">v2.5 — Październik 2026</div>
+                            <div class="changelog-version">v2.4 — Październik 2026</div>
                             <ul class="changelog-list">
-                                <li>Przeprojektowano nagłówek strony (nowa, szklana kapsuła wokół nicku i animowany status).</li>
                                 <li>Dodano podgląd profilu Steam w modalu.</li>
                                 <li>Dodano oznaczenie MADE BY AI w stopce.</li>
                                 <li>Przeniesiono Changelog do prawego górnego rogu.</li>
