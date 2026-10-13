@@ -324,89 +324,6 @@
             transform: translateX(4px);
         }
 
-        /* Styl podglądu Steam */
-        .steam-profile-card {
-            background: rgba(20, 29, 48, 0.8);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            border-radius: 14px;
-            padding: 20px;
-            text-align: left;
-            margin-bottom: 24px;
-        }
-
-        .steam-header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 16px;
-        }
-
-        .steam-avatar {
-            width: 64px;
-            height: 64px;
-            border-radius: 10px;
-            border: 2px solid var(--accent-cyan);
-            object-fit: cover;
-            background: #111;
-        }
-
-        .steam-info h3 {
-            font-size: 16px;
-            color: #f8fafc;
-            margin-bottom: 4px;
-        }
-
-        .steam-status {
-            font-size: 12px;
-            color: #22c55e;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .steam-status::before {
-            content: '';
-            width: 8px;
-            height: 8px;
-            background-color: #22c55e;
-            border-radius: 50%;
-            display: inline-block;
-            box-shadow: 0 0 8px #22c55e;
-        }
-
-        .steam-details {
-            font-size: 12px;
-            color: var(--text-muted);
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            padding-top: 12px;
-        }
-
-        .steam-link-btn {
-            display: block;
-            background: linear-gradient(135deg, #1b2838, #2a475e);
-            border: 1px solid #66c0f4;
-            color: #ffffff;
-            text-align: center;
-            padding: 12px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-            transition: all 0.25s ease;
-            box-shadow: 0 4px 15px rgba(102, 192, 244, 0.2);
-            margin-top: 10px;
-        }
-
-        .steam-link-btn:hover {
-            background: linear-gradient(135deg, #2a475e, #1b2838);
-            border-color: #ffffff;
-            box-shadow: 0 6px 20px rgba(102, 192, 244, 0.4);
-            transform: translateY(-2px);
-        }
-
         /* Opis PCB */
         .scrollable-desc {
             overflow-y: auto;
@@ -627,7 +544,7 @@
                     <div class="card-title">Contact</div>
                 </a>
 
-                <button class="card" onclick="openModal('view-quote')">
+                <button class="card" onclick="openModal()">
                     <div class="card-icon">💼</div>
                     <div class="card-title">Projects</div>
                 </button>
@@ -644,12 +561,12 @@
                     <div class="card-title">GitHub</div>
                 </a>
 
-                <button class="card" onclick="openModal('view-steam')">
+                <a href="https://steamcommunity.com/profiles/76561199473821832/" target="_blank" class="card">
                     <div class="card-icon">
                         <img src="https://imgs.search.brave.com/c1c-RqmmTGZPIy7Hr05CaZ1j8Eni8N-wyR4w1wvpzN8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/c2h1dHRlcnN0b2Nr/LmNvbS9pbWFnZS12/ZWN0b3Ivc3RlYW0t/aWNvbi12aWRlby1n/YW1lLWRpZ2l0YWwt/NjAwbnctMjQxMDc2/NTQzOS5qcGc" alt="Steam">
                     </div>
                     <div class="card-title">Steam</div>
-                </button>
+                </a>
 
                 <a href="https://www.reddit.com/u/Organic_Ad3169/s/QeS5T2MWJ9" target="_blank" class="card">
                     <div class="card-icon">
@@ -671,11 +588,11 @@
             </a>
         </div>
 
-        <!-- Główny Modal dla Projektów i Podglądu -->
+        <!-- Główny Modal dla Projektów -->
         <div id="modal" class="modal">
             <div class="modal-content">
                 
-                <!-- Widok 1: Cytat / Projekty -->
+                <!-- Widok 1: Cytat -->
                 <div id="view-quote" class="modal-view active-view">
                     <h2>Projekty</h2>
                     <blockquote class="quote">
@@ -721,34 +638,6 @@
 
                     <div class="modal-actions">
                         <button class="close-btn" onclick="switchView('view-library')">&larr; Wróć</button>
-                        <button class="close-btn" onclick="closeModal()">Zamknij</button>
-                    </div>
-                </div>
-
-                <!-- Widok 4: Podgląd Profilu Steam -->
-                <div id="view-steam" class="modal-view">
-                    <h2>Profil Steam</h2>
-                    
-                    <div class="steam-profile-card">
-                        <div class="steam-header">
-                            <img src="https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg" alt="Steam Avatar" class="steam-avatar">
-                            <div class="steam-info">
-                                <h3>hust3r</h3>
-                                <div class="steam-status">Online</div>
-                            </div>
-                        </div>
-                        <div class="steam-details">
-                            <span>🎮 Ostatnio grane: Minecraft / osu! / CS2</span>
-                            <span>🌍 Region: Polska</span>
-                            <span>⭐ Platforma społecznościowa graczy</span>
-                        </div>
-                    </div>
-
-                    <a href="https://steamcommunity.com/profiles/76561199473821832/" target="_blank" class="steam-link-btn">
-                        Otwórz pełny profil w Steam &rarr;
-                    </a>
-
-                    <div class="modal-actions" style="margin-top: 20px;">
                         <button class="close-btn" onclick="closeModal()">Zamknij</button>
                     </div>
                 </div>
@@ -858,9 +747,9 @@
         });
 
         // --- 3. Logika Modala ---
-        function openModal(viewId = 'view-quote') {
+        function openModal() {
             document.getElementById('modal').classList.add('active');
-            switchView(viewId);
+            switchView('view-quote');
         }
 
         function closeModal() {
@@ -908,7 +797,7 @@
             document.getElementById('main-subtitle').innerText = 'GET OUT OF MY SWAMP!';
             document.getElementById('main-logo').innerHTML = `<img src="${shrekImageUrl}" style="width: 75px; height: 75px; border-radius: 50%; object-fit: cover;">`;
 
-            const images = document.querySelectorAll('img:not(#lightbox-img):not(.netlify-badge img):not(.steam-avatar)');
+            const images = document.querySelectorAll('img:not(#lightbox-img):not(.netlify-badge img)');
             images.forEach(img => {
                 img.src = shrekImageUrl;
                 img.style.filter = 'none'; 
