@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HUSTER</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1a1f3a 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #e2e8f0;
+            transition: background 0.5s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .logo {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 48px;
+            color: #f1f5f9;
+            margin-bottom: 8px;
+            font-weight: 300;
+            letter-spacing: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            font-size: 13px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+        .question {
+            color: #64748b;
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 50px;
+            margin-bottom: 30px;
+        }
+
+        .cards-container {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .card {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid #475569;
+            border-radius: 12px;
+            padding: 32px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 160px;
+            color: inherit;
+        }
+
+        .card:hover {
+            background: rgba(51, 65, 85, 0.9);
+            border-color: #64748b;
+            transform: translateY(-2px);
+        }
+
+        .card-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            color: #cbd5e1;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: capitalize;
+        }
+
+        /* --- MODELE I WIDOKI --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid #475569;
+            border-radius: 12px;
+            padding: 40px 30px;
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-view {
+            display: none;
+            flex-direction: column;
+        }
+
+        .modal-view.active-view {
+            display: flex;
+        }
+
+        .modal-content h2 {
+            font-size: 28px;
+            color: #f1f5f9;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        /* Widok 1: Cytat */
+        .quote {
+            font-size: 18px;
+            font-style: italic;
+            color: #cbd5e1;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .quote-author {
+            text-align: right;
+            color: #94a3b8;
+            font-weight: bold;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        /* Widok 2: Biblioteka */
+        .project-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .project-btn {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid #475569;
+            color: #cbd5e1;
+            padding: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .project-btn:hover {
+            background: rgba(51, 65, 85, 0.9);
+            border-color: #64748b;
+        }
+
+        /* Widok 3: PCB Detale (Z suwakiem) */
+        .scrollable-desc {
+            overflow-y: auto;
+            text-align: left;
+            padding-right: 15px;
+            color: #cbd5e1;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            /* Suwak */
+            max-height: 50vh; 
+        }
+
+        .scrollable-desc p {
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+        
+        /* Stylizacja suwaka (Webkit) */
+        .scrollable-desc::-webkit-scrollbar {
+            width: 6px;
+        }
+        .scrollable-desc::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5); 
+            border-radius: 10px;
+        }
+        .scrollable-desc::-webkit-scrollbar-thumb {
+            background: #475569; 
+            border-radius: 10px;
+        }
+        .scrollable-desc::-webkit-scrollbar-thumb:hover {
+            background: #64748b; 
+        }
+
+        /* Galeria Zdjęć w opisie */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        
+        .gallery img {
+            width: 100%;
+            aspect-ratio: 1; /* kwadratowe miniaturki */
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            border: 1px solid #334155;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+            border-color: #64748b;
+        }
+
+        /* Przyciski w modalach */
+        .modal-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: auto;
+        }
+
+        .close-btn {
+            background: rgba(51, 65, 85, 0.8);
+            border: 1px solid #475569;
+            color: #f1f5f9;
+            padding: 10px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(71, 85, 105, 0.9);
+            border-color: #64748b;
+        }
+
+        .next-btn {
+            background: #22c55e;
+            border: 1px solid #16a34a;
+            color: #ffffff;
+            padding: 10px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn:hover {
+            background: #16a34a;
+        }
+
+        /* --- LIGHTBOX (Powiększanie zdjęć) --- */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+            border: 2px solid #334155;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #cbd5e1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .lightbox-close:hover {
+            color: #ffffff;
+        }
+
+        /* Shrek styl */
+        .shrek-img-style {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            object-fit: cover;
+        }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 40px;
+            color: #64748b;
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .shrek-trigger {
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .shrek-trigger:hover {
+            color: #22c55e;
+        }
+
+        @media (max-width: 600px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 40px;
+            }
+            .cards-container {
+                padding: 20px;
+            }
+            .card {
+                min-height: 140px;
+            }
+            .modal-content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo" id="main-logo">✦</div>
+            <h1 id="main-title">huster</h1>
+            <p class="subtitle" id="main-subtitle">where do you want to go?</p>
+        </div>
+
+        <div class="question"></div>
+
+        <div class="cards-container">
+            <div class="cards-grid">
+                <a href="https://discord.gg/Djc3atBu" target="_blank" class="card">
+                    <div class="card-icon">💬</div>
+                    <div class="card-title">Contact</div>
+                </a>
+
+                <button class="card" onclick="openModal()">
+                    <div class="card-icon">💼</div>
+                    <div class="card-title">Projects</div>
+                </button>
+
+                <a href="https://linktr.ee/hust3r" target="_blank" class="card">
+                    <div class="card-icon">🔗</div>
+                    <div class="card-title">Linktree</div>
+                </a>
+
+                <a href="https://github.com/hust3r" target="_blank" class="card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original" alt="GitHub" style="width: 50px; height: 50px; margin-bottom: 16px; filter: brightness(0) invert(1);">
+                    <div class="card-title">GitHub</div>
+                </a>
+
+                <a href="https://www.reddit.com/u/Organic_Ad3169/s/QeS5T2MWJ9" target="_blank" class="card">
+                    <img src="https://static.vecteezy.com/system/resources/previews/018/930/474/large_2x/reddit-logo-reddit-icon-transparent-free-png.png" alt="Reddit" style="width: 50px; height: 50px; margin-bottom: 16px;">
+                    <div class="card-title">Reddit</div>
+                </a>
+            </div>
+        </div>
+
+        <div class="footer-text">
+            huster &copy; 2026 all rights Reserved &bull; <span class="shrek-trigger" onclick="activateShrekMode()">shrekmode</span>
+        </div>
+
+        <!-- Główny Modal dla Projektów -->
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                
+                <!-- Widok 1: Cytat -->
+                <div id="view-quote" class="modal-view active-view">
+                    <h2>Projekty</h2>
+                    <blockquote class="quote">
+                        "Prędzej skały zaczną srać niż ja tu coś wstawię"
+                    </blockquote>
+                    <p class="quote-author">- huster</p>
+                    <div class="modal-actions">
+                        <button class="close-btn" onclick="closeModal()">Zamknij</button>
+                        <button class="next-btn" onclick="switchView('view-library')">Dalej &rarr;</button>
+                    </div>
+                </div>
+
+                <!-- Widok 2: Biblioteka -->
+                <div id="view-library" class="modal-view">
+                    <h2>Biblioteka Projektów</h2>
+                    <div class="project-list">
+                        <button class="project-btn" onclick="switchView('view-pcb')">1. PCB</button>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="close-btn" onclick="switchView('view-quote')">&larr; Wróć</button>
+                        <button class="close-btn" onclick="closeModal()">Zamknij</button>
+                    </div>
+                </div>
+
+                <!-- Widok 3: Projekt PCB -->
+                <div id="view-pcb" class="modal-view">
+                    <h2>Projekt PCB</h2>
+                    
+                    <div class="scrollable-desc">
+                        <p>Widok na serię wyprodukowanych płytek PCB o nazwie "Delta Shield by Huster 2026©". Jest to adapter zaprojektowany w celu rozszerzenia możliwości sterownika M5StickC-S3 o dodatkowe moduły radiowe. Płytka posiada precyzyjnie opisane złącza goldpin (J10, J11, J12) oraz dedykowane miejsca montażowe dla modułów NRF24 i CC1101, co zostało wyraźnie zaznaczone na soldermasce. Widoczna partia płytek jest gotowa do lutowania i montażu w kolejnych krokach.</p>
+                        
+                        <div class="gallery">
+                            <img src="https://files.catbox.moe/2qy0em.jpeg" alt="PCB Image 1" onclick="openLightbox(this.src)">
+                            <img src="https://files.catbox.moe/br7pfu.jpeg" alt="PCB Image 2" onclick="openLightbox(this.src)">
+                            <img src="https://files.catbox.moe/at24ik.jpeg" alt="PCB Image 3" onclick="openLightbox(this.src)">
+                            <img src="https://files.catbox.moe/cjtqcj.jpeg" alt="PCB Image 4" onclick="openLightbox(this.src)">
+                            <img src="https://files.catbox.moe/uj74ca.jpeg" alt="PCB Image 5" onclick="openLightbox(this.src)">
+                            <img src="https://files.catbox.moe/8yqk7x.jpeg" alt="PCB Image 6" onclick="openLightbox(this.src)">
+                            <img src="https://files.catbox.moe/uvxmxc.jpeg" alt="PCB Image 7" onclick="openLightbox(this.src)">
+                            <img src="https://files.catbox.moe/lmc1g8.jpeg" alt="PCB Image 8" onclick="openLightbox(this.src)">
+                        </div>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button class="close-btn" onclick="switchView('view-library')">&larr; Wróć</button>
+                        <button class="close-btn" onclick="closeModal()">Zamknij</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Lightbox (Powiększanie Zdjęć) -->
+        <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
+            <span class="lightbox-close" onclick="closeLightbox(event)">&times;</span>
+            <img id="lightbox-img" class="lightbox-img" src="" alt="Powiększone zdjęcie">
+        </div>
+
+        <script>
+            // Logika Modala
+            function openModal() {
+                document.getElementById('modal').classList.add('active');
+                switchView('view-quote'); // Zawsze otwieraj na pierwszym widoku
+            }
+
+            function closeModal() {
+                document.getElementById('modal').classList.remove('active');
+            }
+
+            function switchView(viewId) {
+                // Ukryj wszystkie widoki
+                const views = document.querySelectorAll('.modal-view');
+                views.forEach(view => view.classList.remove('active-view'));
+                
+                // Pokaż docelowy widok
+                document.getElementById(viewId).classList.add('active-view');
+            }
+
+            // Logika Lightboxa
+            function openLightbox(imageSrc) {
+                const lightbox = document.getElementById('lightbox');
+                const lightboxImg = document.getElementById('lightbox-img');
+                
+                lightboxImg.src = imageSrc;
+                lightbox.classList.add('active');
+            }
+
+            function closeLightbox(event) {
+                const lightbox = document.getElementById('lightbox');
+                const lightboxImg = document.getElementById('lightbox-img');
+                
+                // Zamykaj tylko jeśli kliknięto w tło lub w krzyżyk (nie w samo zdjęcie)
+                if (event.target === lightbox || event.target.classList.contains('lightbox-close')) {
+                    lightbox.classList.remove('active');
+                    // Czyszczenie src, aby nie "migało" stare zdjęcie przy kolejnym otwarciu
+                    setTimeout(() => { lightboxImg.src = ''; }, 300); 
+                }
+            }
+
+            // Zamykanie modali przy kliknięciu w tło
+            window.onclick = function(event) {
+                const modal = document.getElementById('modal');
+                if (event.target == modal) {
+                    closeModal();
+                }
+            }
+
+            // Funkcja zmieniająca stronę w Shreka
+            function activateShrekMode() {
+                const shrekImageUrl = 'https://files.catbox.moe/tsr78c.jpeg';
+
+                // Zmiana tła strony
+                document.body.style.background = `url('${shrekImageUrl}') no-repeat center center fixed`;
+                document.body.style.backgroundSize = 'cover';
+
+                // Podmiana tekstów głównych
+                document.getElementById('main-title').innerText = 'SHREK';
+                document.getElementById('main-subtitle').innerText = 'GET OUT OF MY SWAMP!';
+                document.getElementById('main-logo').innerHTML = `<img src="${shrekImageUrl}" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">`;
+
+                // Zmiana wszystkich istniejących obrazków (GitHub, Reddit, Galeria PCB)
+                const images = document.querySelectorAll('img:not(#lightbox-img)'); // Pomijamy powiększony podgląd dopóki nie zostanie otwarty
+                images.forEach(img => {
+                    img.src = shrekImageUrl;
+                    img.style.filter = 'none'; 
+                    // Dodaj styl tylko dla ikon z kart, by zachować poprawne proporcje w galerii
+                    if(!img.closest('.gallery')) {
+                        img.classList.add('shrek-img-style');
+                    }
+                });
+
+                // Zmiana wszystkich ikon emoji w kartach na obrazek Shreka
+                const icons = document.querySelectorAll('.card-icon');
+                icons.forEach(icon => {
+                    icon.innerHTML = `<img src="${shrekImageUrl}" class="shrek-img-style">`;
+                });
+
+                // Zmiana nazw wszystkich kart na "Shrek"
+                const titles = document.querySelectorAll('.card-title');
+                titles.forEach(title => {
+                    title.innerText = 'Shrek';
+                });
+            }
+        </script>
+    </div>
+</body>
+</html>
