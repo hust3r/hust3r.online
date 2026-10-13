@@ -133,7 +133,7 @@
             perspective: 1000px;
         }
 
-        /* Swiatlo po najechaniu kursorem */
+        /* Światło po najechaniu kursorem */
         .card::before {
             content: '';
             position: absolute;
@@ -190,7 +190,7 @@
             transform: translateZ(10px);
         }
 
-        /* Specjalne formatowanie dla karty Reddit (pełna szerokość) */
+        /* Karta Reddit na pełną szerokość */
         .card.full-width {
             grid-column: 1 / -1;
             flex-direction: row;
@@ -279,7 +279,6 @@
             color: #cbd5e1;
             margin-bottom: 12px;
             line-height: 1.6;
-            quotes: "„" "”";
         }
         
         .quote-author {
@@ -334,7 +333,7 @@
             transform: translateX(4px);
         }
 
-        /* Opis PCB z Suwakiem */
+        /* Opis PCB */
         .scrollable-desc {
             overflow-y: auto;
             text-align: left;
@@ -481,6 +480,7 @@
             object-fit: cover;
         }
 
+        /* Stopka i Odznaka Netlify */
         .footer-text {
             text-align: center;
             margin-top: 38px;
@@ -488,7 +488,27 @@
             font-size: 11px;
             letter-spacing: 2px;
             text-transform: uppercase;
-            opacity: 0.7;
+            opacity: 0.85;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .netlify-badge {
+            display: inline-block;
+            transition: transform 0.25s ease, filter 0.25s ease;
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
+        }
+
+        .netlify-badge:hover {
+            transform: translateY(-2px);
+            filter: drop-shadow(0 4px 12px rgba(56, 189, 248, 0.3));
+        }
+
+        .netlify-badge img {
+            display: block;
+            border-radius: 4px;
         }
 
         .shrek-trigger {
@@ -564,7 +584,14 @@
         </div>
 
         <div class="footer-text">
-            huster &copy; 2026 all rights reserved &bull; <span class="shrek-trigger" onclick="activateShrekMode()">shrekmode</span>
+            <div>
+                huster &copy; 2026 all rights reserved &bull; <span class="shrek-trigger" onclick="activateShrekMode()">shrekmode</span>
+            </div>
+            
+            <!-- Netlify Deploy Status Badge -->
+            <a href="https://app.netlify.com/projects/gentle-croissant-939230/deploys" target="_blank" class="netlify-badge">
+                <img src="https://api.netlify.com/api/v1/badges/fb5e3abf-49d2-4ac3-b830-f640a5336c32/deploy-status" alt="Netlify Status">
+            </a>
         </div>
 
         <!-- Główny Modal dla Projektów -->
@@ -776,7 +803,8 @@
             document.getElementById('main-subtitle').innerText = 'GET OUT OF MY SWAMP!';
             document.getElementById('main-logo').innerHTML = `<img src="${shrekImageUrl}" style="width: 75px; height: 75px; border-radius: 50%; object-fit: cover;">`;
 
-            const images = document.querySelectorAll('img:not(#lightbox-img)');
+            // Zmiana obrazków (poza odznaką Netlify i lightboxem)
+            const images = document.querySelectorAll('img:not(#lightbox-img):not(.netlify-badge img)');
             images.forEach(img => {
                 img.src = shrekImageUrl;
                 img.style.filter = 'none'; 
