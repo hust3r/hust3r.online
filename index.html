@@ -177,6 +177,7 @@
             width: 38px;
             height: 38px;
             object-fit: contain;
+            border-radius: 6px;
         }
 
         .card-title {
@@ -191,19 +192,6 @@
         .card:hover .card-title {
             color: var(--accent-cyan);
             transform: translateZ(10px);
-        }
-
-        /* Karty na pełną szerokość */
-        .card.full-width {
-            grid-column: 1 / -1;
-            flex-direction: row;
-            gap: 16px;
-            min-height: 80px;
-            padding: 18px 24px;
-        }
-
-        .card.full-width .card-icon {
-            margin-bottom: 0;
         }
 
         /* --- MODALE --- */
@@ -527,10 +515,6 @@
             .cards-grid {
                 grid-template-columns: 1fr;
             }
-            .card.full-width {
-                grid-column: auto;
-                flex-direction: column;
-            }
             h1 {
                 font-size: 38px;
             }
@@ -579,7 +563,7 @@
 
                 <a href="https://steamcommunity.com/profiles/76561199473821832/" target="_blank" class="card">
                     <div class="card-icon">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg" alt="Steam" style="filter: brightness(0) invert(1);">
+                        <img src="https://imgs.search.brave.com/c1c-RqmmTGZPIy7Hr05CaZ1j8Eni8N-wyR4w1wvpzN8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/c2h1dHRlcnN0b2Nr/LmNvbS9pbWFnZS12/ZWN0b3Ivc3RlYW0t/aWNvbi12aWRlby1n/YW1lLWRpZ2l0YWwt/NjAwbnctMjQxMDc2/NTQzOS5qcGc" alt="Steam">
                     </div>
                     <div class="card-title">Steam</div>
                 </a>
