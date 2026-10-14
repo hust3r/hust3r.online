@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HUSTER — Official Space</title>
+    <title>HUSTER — Cyber Portfolio</title>
     <style>
         :root {
-            --bg-dark: #080b12;
-            --card-bg: rgba(18, 24, 38, 0.65);
+            --bg-dark: #05070d;
+            --card-bg: rgba(13, 19, 33, 0.55);
             --card-border: rgba(255, 255, 255, 0.08);
-            --card-hover-border: rgba(56, 189, 248, 0.5);
             --accent-cyan: #38bdf8;
-            --accent-purple: #a855f7;
+            --accent-purple: #c084fc;
+            --accent-pink: #f472b6;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
         }
@@ -24,16 +24,49 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
             background-color: var(--bg-dark);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 24px;
             color: var(--text-main);
             overflow-x: hidden;
             position: relative;
+        }
+
+        /* --- TŁO CYBER MESH & CANVAS --- */
+        .glow-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.35;
+            pointer-events: none;
+            z-index: 0;
+            animation: orbFloat 12s ease-in-out infinite alternate;
+        }
+
+        .orb-1 {
+            top: -10%;
+            left: -10%;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, var(--accent-cyan), transparent 70%);
+        }
+
+        .orb-2 {
+            bottom: -15%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--accent-purple), transparent 70%);
+            animation-delay: -6s;
+        }
+
+        @keyframes orbFloat {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(60px, 40px) scale(1.15); }
         }
 
         #bg-canvas {
@@ -46,35 +79,36 @@
             pointer-events: none;
         }
 
-        /* Przycisk Changelog w prawym górnym rogu */
+        /* CHANGELOG - PRAWY GÓRNY RÓG */
         .top-right-changelog {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 24px;
+            right: 24px;
             z-index: 10;
-            background: rgba(18, 24, 38, 0.75);
-            border: 1px solid var(--card-border);
+            background: rgba(18, 25, 41, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             color: var(--text-muted);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 12px;
+            padding: 9px 18px;
+            border-radius: 30px;
+            font-size: 11px;
             font-weight: 600;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
             cursor: pointer;
-            backdrop-filter: blur(12px);
-            transition: all 0.25s ease;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             align-items: center;
-            gap: 6px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            gap: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         .top-right-changelog:hover {
             border-color: var(--accent-cyan);
             color: #fff;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(56, 189, 248, 0.25);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
         }
 
         .container {
@@ -84,71 +118,72 @@
             z-index: 1;
         }
 
-        /* NAGŁÓWEK */
+        /* --- STYLOWY NAGŁÓWEK --- */
         .header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 36px;
             position: relative;
         }
 
         .logo-wrapper {
-            position: relative;
             display: inline-block;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
+            position: relative;
         }
 
         .logo {
-            font-size: 52px;
+            font-size: 48px;
             display: inline-block;
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+            background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 25px rgba(56, 189, 248, 0.4));
-            animation: pulseGlow 4s ease-in-out infinite alternate;
+            filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.5));
+            animation: gradientShift 6s ease infinite alternate;
         }
 
-        @keyframes pulseGlow {
-            0% { filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.3)); transform: scale(1); }
-            100% { filter: drop-shadow(0 0 30px rgba(168, 85, 247, 0.6)); transform: scale(1.05); }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; transform: scale(1); }
+            100% { background-position: 100% 50%; transform: scale(1.04); }
         }
 
         .title-box {
-            position: relative;
             display: inline-block;
-            padding: 10px 24px;
-            background: rgba(13, 18, 30, 0.5);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            border-radius: 16px;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.5),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            margin-bottom: 12px;
+            padding: 8px 28px;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            margin-bottom: 14px;
         }
 
         h1 {
-            font-size: 42px;
+            font-size: 38px;
             color: var(--text-main);
             font-weight: 300;
-            letter-spacing: 10px;
+            letter-spacing: 12px;
             font-family: 'Courier New', monospace;
             text-transform: lowercase;
-            text-shadow: 0 0 25px rgba(56, 189, 248, 0.3);
+            text-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
         }
 
         .subtitle-badge {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 6px 14px;
-            background: rgba(56, 189, 248, 0.05);
-            border: 1px solid rgba(56, 189, 248, 0.15);
-            border-radius: 20px;
+            padding: 6px 16px;
+            background: rgba(56, 189, 248, 0.06);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 30px;
             color: var(--accent-cyan);
-            font-size: 11px;
+            font-size: 10px;
             letter-spacing: 3px;
             text-transform: uppercase;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-weight: 700;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
 
         .subtitle-badge::before {
@@ -157,22 +192,23 @@
             height: 6px;
             background-color: var(--accent-cyan);
             border-radius: 50%;
-            box-shadow: 0 0 8px var(--accent-cyan);
-            animation: blink 2s infinite;
+            box-shadow: 0 0 10px var(--accent-cyan);
+            animation: pulseDot 2s infinite;
         }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
+        @keyframes pulseDot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(0.7); }
         }
 
+        /* --- KARTY (KAFELKI) --- */
         .cards-container {
-            background: rgba(13, 18, 30, 0.6);
-            border: 1px solid var(--card-border);
-            border-radius: 24px;
-            padding: 24px;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(11, 16, 27, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 28px;
+            padding: 20px;
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.7),
                         inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
@@ -186,17 +222,17 @@
         .card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 28px 20px;
+            border-radius: 20px;
+            padding: 24px 16px;
             text-align: center;
             cursor: pointer;
-            transition: transform 0.15s ease-out, border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
             text-decoration: none;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 145px;
+            min-height: 140px;
             color: inherit;
             position: relative;
             overflow: hidden;
@@ -204,15 +240,16 @@
             perspective: 1000px;
         }
 
+        /* Efekt podświetlenia po najechaniu */
         .card::before {
             content: '';
             position: absolute;
             top: var(--mouse-y, 50%);
             left: var(--mouse-x, 50%);
             transform: translate(-50%, -50%);
-            width: 180px;
-            height: 180px;
-            background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%);
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.18) 0%, transparent 70%);
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
@@ -223,36 +260,37 @@
         }
 
         .card:hover {
-            border-color: var(--card-hover-border);
-            background: rgba(26, 35, 55, 0.75);
-            box-shadow: 0 12px 30px -8px rgba(56, 189, 248, 0.25),
+            border-color: rgba(56, 189, 248, 0.4);
+            background: rgba(20, 28, 46, 0.7);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.6),
+                        0 0 25px rgba(56, 189, 248, 0.15),
                         inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
 
         .card-icon {
-            font-size: 36px;
+            font-size: 34px;
             margin-bottom: 12px;
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4));
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .card:hover .card-icon {
-            transform: translateZ(20px) scale(1.15);
+            transform: translateZ(25px) scale(1.12);
         }
 
         .card-icon img {
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
             object-fit: contain;
-            border-radius: 6px;
+            border-radius: 8px;
         }
 
         .card-title {
             color: var(--text-main);
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -261,10 +299,10 @@
 
         .card:hover .card-title {
             color: var(--accent-cyan);
-            transform: translateZ(10px);
+            transform: translateZ(12px);
         }
 
-        /* MODALE */
+        /* --- OKNA MODALNE --- */
         .modal {
             display: none;
             position: fixed;
@@ -273,9 +311,9 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(4, 7, 13, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background-color: rgba(3, 5, 10, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
         }
 
         .modal.active {
@@ -286,23 +324,23 @@
         }
 
         @keyframes modalFadeIn {
-            from { opacity: 0; transform: scale(0.96); }
+            from { opacity: 0; transform: scale(0.95); }
             to { opacity: 1; transform: scale(1); }
         }
 
         .modal-content {
-            background: rgba(15, 22, 36, 0.95);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 36px 28px;
+            background: rgba(13, 19, 32, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 32px 24px;
             text-align: center;
             max-width: 460px;
             width: 90%;
             max-height: 85vh;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.9),
-                        0 0 40px rgba(56, 189, 248, 0.1);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.9),
+                        0 0 50px rgba(56, 189, 248, 0.12);
             position: relative;
         }
 
@@ -317,16 +355,16 @@
         }
 
         @keyframes viewSlide {
-            from { opacity: 0; transform: translateY(12px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .modal-content h2 {
-            font-size: 22px;
+            font-size: 20px;
             color: var(--text-main);
-            margin-bottom: 22px;
+            margin-bottom: 20px;
             letter-spacing: 2px;
-            font-weight: 500;
+            font-weight: 600;
             text-transform: uppercase;
             background: linear-gradient(135deg, #fff, var(--text-muted));
             -webkit-background-clip: text;
@@ -334,7 +372,7 @@
         }
 
         .quote {
-            font-size: 16px;
+            font-size: 15px;
             font-style: italic;
             color: #cbd5e1;
             margin-bottom: 12px;
@@ -345,8 +383,8 @@
             text-align: right;
             color: var(--accent-cyan);
             font-weight: 600;
-            margin-bottom: 28px;
-            font-size: 13px;
+            margin-bottom: 24px;
+            font-size: 12px;
             letter-spacing: 1px;
         }
 
@@ -354,18 +392,18 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin-bottom: 28px;
+            margin-bottom: 24px;
         }
 
         .project-btn {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--card-border);
             color: var(--text-main);
-            padding: 16px 20px;
-            border-radius: 12px;
+            padding: 14px 18px;
+            border-radius: 14px;
             cursor: pointer;
             transition: all 0.25s ease;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
             text-align: left;
             display: flex;
@@ -382,7 +420,7 @@
 
         .project-btn::after {
             content: '→';
-            font-size: 16px;
+            font-size: 15px;
             color: var(--text-muted);
             transition: transform 0.25s ease, color 0.25s ease;
         }
@@ -392,40 +430,40 @@
             transform: translateX(4px);
         }
 
-        /* Podgląd Profilu Steam */
+        /* STEAM PROFILE */
         .steam-profile-card {
-            background: rgba(20, 29, 48, 0.8);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            border-radius: 14px;
-            padding: 20px;
+            background: rgba(18, 26, 43, 0.8);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            border-radius: 16px;
+            padding: 18px;
             text-align: left;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .steam-header {
             display: flex;
             align-items: center;
-            gap: 16px;
-            margin-bottom: 16px;
+            gap: 14px;
+            margin-bottom: 14px;
         }
 
         .steam-avatar {
-            width: 64px;
-            height: 64px;
-            border-radius: 10px;
+            width: 58px;
+            height: 58px;
+            border-radius: 12px;
             border: 2px solid var(--accent-cyan);
             object-fit: cover;
             background: #111;
         }
 
         .steam-info h3 {
-            font-size: 16px;
+            font-size: 15px;
             color: #f8fafc;
             margin-bottom: 4px;
         }
 
         .steam-status {
-            font-size: 12px;
+            font-size: 11px;
             color: #22c55e;
             display: flex;
             align-items: center;
@@ -434,8 +472,8 @@
 
         .steam-status::before {
             content: '';
-            width: 8px;
-            height: 8px;
+            width: 7px;
+            height: 7px;
             background-color: #22c55e;
             border-radius: 50%;
             display: inline-block;
@@ -443,13 +481,13 @@
         }
 
         .steam-details {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--text-muted);
             display: flex;
             flex-direction: column;
             gap: 6px;
             border-top: 1px solid rgba(255, 255, 255, 0.06);
-            padding-top: 12px;
+            padding-top: 10px;
         }
 
         .steam-link-btn {
@@ -459,13 +497,13 @@
             color: #ffffff;
             text-align: center;
             padding: 12px;
-            border-radius: 10px;
+            border-radius: 12px;
             text-decoration: none;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             transition: all 0.25s ease;
             box-shadow: 0 4px 15px rgba(102, 192, 244, 0.2);
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         .steam-link-btn:hover {
@@ -478,41 +516,41 @@
         .scrollable-desc {
             overflow-y: auto;
             text-align: left;
-            padding-right: 12px;
+            padding-right: 10px;
             color: var(--text-muted);
-            font-size: 13px;
-            line-height: 1.65;
-            margin-bottom: 20px;
-            max-height: 48vh; 
+            font-size: 12px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            max-height: 45vh; 
         }
 
         .scrollable-desc p {
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             text-align: justify;
         }
 
         .changelog-item {
             border-left: 2px solid var(--accent-cyan);
             padding-left: 12px;
-            margin-bottom: 18px;
+            margin-bottom: 16px;
         }
 
         .changelog-version {
             color: var(--accent-cyan);
             font-weight: 600;
-            font-size: 13px;
-            margin-bottom: 6px;
+            font-size: 12px;
+            margin-bottom: 4px;
         }
 
         .changelog-list {
             list-style-type: none;
             padding-left: 0;
-            font-size: 12px;
+            font-size: 11px;
         }
 
         .changelog-list li {
             position: relative;
-            padding-left: 14px;
+            padding-left: 12px;
             margin-bottom: 4px;
         }
 
@@ -522,7 +560,7 @@
             left: 0;
             color: var(--accent-cyan);
         }
-        
+
         .scrollable-desc::-webkit-scrollbar {
             width: 4px;
         }
@@ -534,15 +572,12 @@
             background: rgba(255, 255, 255, 0.15); 
             border-radius: 10px;
         }
-        .scrollable-desc::-webkit-scrollbar-thumb:hover {
-            background: var(--accent-cyan); 
-        }
 
         .gallery {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 10px;
-            margin-top: 14px;
+            margin-top: 12px;
         }
         
         .gallery img {
@@ -563,7 +598,7 @@
         .modal-actions {
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
             margin-top: auto;
         }
 
@@ -571,10 +606,10 @@
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--card-border);
             color: var(--text-muted);
-            padding: 10px 22px;
+            padding: 9px 20px;
             border-radius: 10px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 500;
             transition: all 0.2s ease;
         }
@@ -588,10 +623,10 @@
             background: linear-gradient(135deg, #0284c7, #0369a1);
             border: none;
             color: #ffffff;
-            padding: 10px 24px;
+            padding: 9px 22px;
             border-radius: 10px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             transition: all 0.25s ease;
             box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3);
@@ -602,7 +637,7 @@
             box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
         }
 
-        /* Lightbox */
+        /* LIGHTBOX */
         .lightbox {
             display: none;
             position: fixed;
@@ -624,7 +659,7 @@
 
         .lightbox-img {
             max-width: 90%;
-            max-height: 88vh;
+            max-height: 85vh;
             border-radius: 12px;
             box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -635,7 +670,7 @@
             top: 25px;
             right: 35px;
             color: var(--text-muted);
-            font-size: 38px;
+            font-size: 36px;
             font-weight: 300;
             cursor: pointer;
             transition: color 0.2s;
@@ -646,34 +681,38 @@
         }
 
         .shrek-img-style {
-            width: 48px;
-            height: 48px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             object-fit: cover;
         }
 
         /* STOPKA */
         .footer-text {
             text-align: center;
-            margin-top: 38px;
+            margin-top: 32px;
             color: var(--text-muted);
-            font-size: 11px;
+            font-size: 10px;
             letter-spacing: 2px;
             text-transform: uppercase;
             opacity: 0.85;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .ai-tag {
-            font-size: 10px;
+            font-size: 9px;
             color: var(--accent-cyan);
             letter-spacing: 2px;
             opacity: 0.9;
             font-weight: 700;
+            padding: 3px 10px;
+            background: rgba(56, 189, 248, 0.08);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 20px;
         }
 
         .netlify-badge {
@@ -706,28 +745,31 @@
                 grid-template-columns: 1fr;
             }
             h1 {
-                font-size: 34px;
-                letter-spacing: 6px;
+                font-size: 32px;
+                letter-spacing: 8px;
             }
             .cards-container {
-                padding: 16px;
+                padding: 14px;
             }
             .card {
-                min-height: 130px;
+                min-height: 125px;
             }
             .top-right-changelog {
-                top: 12px;
-                right: 12px;
-                font-size: 11px;
-                padding: 6px 12px;
+                top: 14px;
+                right: 14px;
+                font-size: 10px;
+                padding: 6px 14px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Tło ze świetlnymi kulami (Glow Orbs) i cząsteczkami -->
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
     <canvas id="bg-canvas"></canvas>
 
-    <!-- Przycisk Changelog po prawej w górze -->
+    <!-- Button Changelog w prawym górnym rogu -->
     <button class="top-right-changelog" onclick="openModal('view-changelog')">
         <span>📜</span> Changelog
     </button>
@@ -746,6 +788,7 @@
             </div>
         </div>
 
+        <!-- Siatka Kafelków -->
         <div class="cards-container">
             <div class="cards-grid">
                 <a href="https://discord.gg/Djc3atBu" target="_blank" class="card">
@@ -786,6 +829,7 @@
             </div>
         </div>
 
+        <!-- Stopka -->
         <div class="footer-text">
             <div>
                 huster &copy; 2026 all rights reserved &bull; <span class="shrek-trigger" onclick="activateShrekMode()">shrekmode</span>
@@ -793,7 +837,7 @@
             
             <div class="ai-tag">MADE BY AI</div>
             
-            <!-- Netlify Deploy Status Badge -->
+            <!-- Netlify Status Badge -->
             <a href="https://app.netlify.com/projects/gentle-croissant-939230/deploys" target="_blank" class="netlify-badge">
                 <img src="https://api.netlify.com/api/v1/badges/fb5e3abf-49d2-4ac3-b830-f640a5336c32/deploy-status" alt="Netlify Status">
             </a>
@@ -887,21 +931,22 @@
                     
                     <div class="scrollable-desc">
                         <div class="changelog-item">
-                            <div class="changelog-version">v2.5 — Październik 2026</div>
+                            <div class="changelog-version">v3.0 — Ultra Cyber Glassmorphism</div>
                             <ul class="changelog-list">
-                                <li>Przeprojektowano nagłówek strony (szklany ramnik i aktywny wskaźnik statusu).</li>
-                                <li>Dodano podgląd profilu Steam w oknie modalnym.</li>
-                                <li>Dodano oznaczenie MADE BY AI w stopce strony.</li>
-                                <li>Dedykowany przycisk Changelog umieszczono w prawym górnym rogu.</li>
+                                <li>Dodano dynamiczne glowing mesh gradient orby w tle.</li>
+                                <li>Ulepszono efekt rozproszenia i cząsteczek na canvasie.</li>
+                                <li>Nowe wykończenie krawędziowe kart (3D Gloss & Shimmer).</li>
+                                <li>Przycisk Changelog w prawym górnym rogu.</li>
+                                <li>Napis MADE BY AI oraz odznaka Netlify.</li>
                             </ul>
                         </div>
 
                         <div class="changelog-item">
                             <div class="changelog-version">v2.0 — Redesign Glassmorphism</div>
                             <ul class="changelog-list">
-                                <li>Dodano animowane cząsteczki świetlne w tle canvas.</li>
-                                <li>Wdrożono interaktywny efekt 3D Tilt dla kart menu.</li>
-                                <li>Galeria zdjęć projektu PCB ze zintegrowanym podglądem Lightbox.</li>
+                                <li>Animowane cząsteczki świetlne w tle.</li>
+                                <li>Efekt 3D Tilt dla kart menu.</li>
+                                <li>Galeria projektów PCB z podglądem Lightbox.</li>
                             </ul>
                         </div>
                     </div>
@@ -922,7 +967,7 @@
     </div>
 
     <script>
-        // Animacja cząsteczek canvas
+        // Animowanie cząsteczek świetlnych na canvas
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -938,10 +983,10 @@
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 0.4;
-                this.vy = (Math.random() - 0.5) * 0.4;
+                this.vx = (Math.random() - 0.5) * 0.35;
+                this.vy = (Math.random() - 0.5) * 0.35;
                 this.radius = Math.random() * 1.5 + 0.5;
-                this.alpha = Math.random() * 0.5 + 0.2;
+                this.alpha = Math.random() * 0.4 + 0.15;
             }
 
             update() {
@@ -960,7 +1005,7 @@
             }
         }
 
-        for (let i = 0; i < 45; i++) {
+        for (let i = 0; i < 40; i++) {
             particles.push(new Particle());
         }
 
@@ -980,8 +1025,8 @@
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `rgba(56, 189, 248, ${0.15 * (1 - dist / 110)})`;
-                        ctx.lineWidth = 0.6;
+                        ctx.strokeStyle = `rgba(56, 189, 248, ${0.12 * (1 - dist / 110)})`;
+                        ctx.lineWidth = 0.5;
                         ctx.stroke();
                     }
                 }
@@ -990,7 +1035,7 @@
         }
         animateCanvas();
 
-        // 3D Tilt Kart
+        // 3D Tilt Efekt
         const cards = document.querySelectorAll('.card');
 
         cards.forEach(card => {
@@ -1004,8 +1049,8 @@
 
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
-                const rotateX = ((y - centerY) / centerY) * -8;
-                const rotateY = ((x - centerX) / centerX) * 8;
+                const rotateX = ((y - centerY) / centerY) * -10;
+                const rotateY = ((x - centerX) / centerX) * 10;
 
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
             });
@@ -1015,7 +1060,7 @@
             });
         });
 
-        // Obsługa Modalności
+        // Obsługa Okien Modalnych
         function openModal(viewId = 'view-quote') {
             document.getElementById('modal').classList.add('active');
             switchView(viewId);
@@ -1032,7 +1077,7 @@
             if (target) target.classList.add('active-view');
         }
 
-        // Obsługa Lightboxa
+        // Obsługa Lightbox
         function openLightbox(imageSrc) {
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightbox-img');
@@ -1056,7 +1101,7 @@
             }
         }
 
-        // Shrekmode
+        // Sekretny Shrekmode
         function activateShrekMode() {
             const shrekImageUrl = 'https://files.catbox.moe/tsr78c.jpeg';
 
@@ -1065,7 +1110,7 @@
 
             document.getElementById('main-title').innerText = 'SHREK';
             document.getElementById('main-subtitle').innerText = 'GET OUT OF MY SWAMP!';
-            document.getElementById('main-logo').innerHTML = `<img src="${shrekImageUrl}" style="width: 75px; height: 75px; border-radius: 50%; object-fit: cover;">`;
+            document.getElementById('main-logo').innerHTML = `<img src="${shrekImageUrl}" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;">`;
 
             const images = document.querySelectorAll('img:not(#lightbox-img):not(.netlify-badge img):not(.steam-avatar)');
             images.forEach(img => {
